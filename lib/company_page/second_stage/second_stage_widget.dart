@@ -55,10 +55,19 @@ class _SecondStageWidgetState extends State<SecondStageWidget> {
         appBar: AppBar(
           backgroundColor: Color(0xFFFFCC33),
           automaticallyImplyLeading: true,
-          leading: Icon(
-            Icons.arrow_back_sharp,
-            color: FlutterFlowTheme.of(context).secondaryText,
-            size: 24.0,
+          leading: InkWell(
+            splashColor: Colors.transparent,
+            focusColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            onTap: () async {
+              context.safePop();
+            },
+            child: Icon(
+              Icons.arrow_back_sharp,
+              color: FlutterFlowTheme.of(context).secondaryText,
+              size: 24.0,
+            ),
           ),
           title: Text(
             'Apply',
@@ -862,15 +871,7 @@ class _SecondStageWidgetState extends State<SecondStageWidget> {
                       ),
                     });
 
-                    context.pushNamed(
-                      'candidate',
-                      queryParameters: {
-                        'jref': serializeParam(
-                          widget.ref,
-                          ParamType.DocumentReference,
-                        ),
-                      }.withoutNulls,
-                    );
+                    context.pushNamed('Success');
 
                     setState(() {});
                   },

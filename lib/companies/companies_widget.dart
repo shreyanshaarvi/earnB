@@ -96,19 +96,6 @@ class _CompaniesWidgetState extends State<CompaniesWidget> {
                                   FlutterFlowTheme.of(context).bodyLargeFamily),
                             ),
                       ),
-                      Text(
-                        'See all',
-                        style: FlutterFlowTheme.of(context).labelLarge.override(
-                              fontFamily:
-                                  FlutterFlowTheme.of(context).labelLargeFamily,
-                              color: FlutterFlowTheme.of(context).accent2,
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.w600,
-                              useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                  FlutterFlowTheme.of(context)
-                                      .labelLargeFamily),
-                            ),
-                      ),
                     ],
                   ),
                 ),

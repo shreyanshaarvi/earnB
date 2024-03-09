@@ -40,7 +40,6 @@ class _SuccessWidgetState extends State<SuccessWidget> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Color(0xFFE8F2EA),
         body: SafeArea(
           top: true,
           child: Column(
@@ -54,84 +53,74 @@ class _SuccessWidgetState extends State<SuccessWidget> {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                 ),
-                child: Image.network(
-                  'https://picsum.photos/seed/522/600',
+                child: Image.asset(
+                  'assets/images/verify.png',
                   fit: BoxFit.cover,
                 ),
               ),
-              Column(
+              Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Padding(
-                    padding: EdgeInsets.all(20.0),
-                    child: FFButtonWidget(
-                      onPressed: () {
-                        print('Button pressed ...');
-                      },
-                      text: 'Track',
-                      options: FFButtonOptions(
-                        width: 374.0,
-                        height: 51.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            24.0, 0.0, 24.0, 0.0),
-                        iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: Color(0xFFFFCC33),
-                        textStyle: FlutterFlowTheme.of(context)
-                            .titleMedium
-                            .override(
-                              fontFamily: FlutterFlowTheme.of(context)
-                                  .titleMediumFamily,
-                              color: FlutterFlowTheme.of(context).secondaryText,
-                              fontSize: 18.0,
-                              useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                  FlutterFlowTheme.of(context)
-                                      .titleMediumFamily),
-                            ),
-                        elevation: 3.0,
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(20.0),
-                    child: FFButtonWidget(
-                      onPressed: () {
-                        print('Button pressed ...');
-                      },
-                      text: 'Browse Jobs',
-                      options: FFButtonOptions(
-                        width: 374.0,
-                        height: 51.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            24.0, 0.0, 24.0, 0.0),
-                        iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).secondaryText,
-                        textStyle:
-                            FlutterFlowTheme.of(context).titleMedium.override(
-                                  fontFamily: FlutterFlowTheme.of(context)
-                                      .titleMediumFamily,
-                                  color: Color(0xFFFFCC33),
-                                  fontSize: 18.0,
-                                  useGoogleFonts: GoogleFonts.asMap()
-                                      .containsKey(FlutterFlowTheme.of(context)
-                                          .titleMediumFamily),
-                                ),
-                        elevation: 3.0,
-                        borderSide: BorderSide(
-                          color: Color(0xFFFFCC33),
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(70.0, 0.0, 0.0, 70.0),
+                    child: Text(
+                      'You  Have Sucessfully Applied!',
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily:
+                                FlutterFlowTheme.of(context).bodyMediumFamily,
+                            color: Color(0xFFFFCF05),
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.w500,
+                            useGoogleFonts: GoogleFonts.asMap().containsKey(
+                                FlutterFlowTheme.of(context).bodyMediumFamily),
+                          ),
                     ),
                   ),
                 ],
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 80.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(20.0),
+                      child: FFButtonWidget(
+                        onPressed: () async {
+                          context.pushNamed('HomePage');
+                        },
+                        text: 'Browse Jobs',
+                        options: FFButtonOptions(
+                          width: 374.0,
+                          height: 51.0,
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              24.0, 0.0, 24.0, 0.0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          color: FlutterFlowTheme.of(context).secondaryText,
+                          textStyle: FlutterFlowTheme.of(context)
+                              .titleMedium
+                              .override(
+                                fontFamily: FlutterFlowTheme.of(context)
+                                    .titleMediumFamily,
+                                color: Color(0xFFFFCC33),
+                                fontSize: 18.0,
+                                useGoogleFonts: GoogleFonts.asMap().containsKey(
+                                    FlutterFlowTheme.of(context)
+                                        .titleMediumFamily),
+                              ),
+                          elevation: 3.0,
+                          borderSide: BorderSide(
+                            color: Color(0xFFFFCC33),
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

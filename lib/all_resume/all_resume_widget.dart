@@ -42,8 +42,8 @@ class _AllResumeWidgetState extends State<AllResumeWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            context.pushNamed('AddResum');
+          onPressed: () {
+            print('FloatingActionButton pressed ...');
           },
           backgroundColor: Color(0xFFFFCC33),
           elevation: 8.0,

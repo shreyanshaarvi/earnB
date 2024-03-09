@@ -437,6 +437,11 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                                                 context)
                                                             .bodyMediumFamily),
                                               ),
+                                          mouseCursor: SystemMouseCursors.click,
+                                          recognizer: TapGestureRecognizer()
+                                            ..onTap = () async {
+                                              context.pushNamed('SignIN');
+                                            },
                                         )
                                       ],
                                       style: FlutterFlowTheme.of(context)

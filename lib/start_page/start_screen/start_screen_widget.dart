@@ -50,7 +50,7 @@ class _StartScreenWidgetState extends State<StartScreenWidget> {
             children: [
               Expanded(
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 30.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 80.0),
                   child: Container(
                     width: double.infinity,
                     height: 400.0,
@@ -369,36 +369,41 @@ class _StartScreenWidgetState extends State<StartScreenWidget> {
                 padding: EdgeInsets.all(10.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    FFButtonWidget(
-                      onPressed: () async {
-                        context.pushNamed('SignUp');
-                      },
-                      text: 'Continue',
-                      options: FFButtonOptions(
-                        width: 370.0,
-                        height: 40.0,
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: Color(0xFFFFCC33),
-                        textStyle: FlutterFlowTheme.of(context)
-                            .titleMedium
-                            .override(
-                              fontFamily: FlutterFlowTheme.of(context)
-                                  .titleMediumFamily,
-                              color: FlutterFlowTheme.of(context).secondaryText,
-                              useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                  FlutterFlowTheme.of(context)
-                                      .titleMediumFamily),
-                            ),
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1.0,
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 50.0),
+                      child: FFButtonWidget(
+                        onPressed: () async {
+                          context.pushNamed('SignIN');
+                        },
+                        text: 'Continue',
+                        options: FFButtonOptions(
+                          width: 300.0,
+                          height: 48.5,
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          color: Color(0xFFFFCC33),
+                          textStyle: FlutterFlowTheme.of(context)
+                              .titleMedium
+                              .override(
+                                fontFamily: FlutterFlowTheme.of(context)
+                                    .titleMediumFamily,
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryText,
+                                useGoogleFonts: GoogleFonts.asMap().containsKey(
+                                    FlutterFlowTheme.of(context)
+                                        .titleMediumFamily),
+                              ),
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
-                        borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
                   ],

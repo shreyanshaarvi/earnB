@@ -49,11 +49,6 @@ class _ApplicationsWidgetState extends State<ApplicationsWidget> {
         appBar: AppBar(
           backgroundColor: Color(0xFFFFCC33),
           automaticallyImplyLeading: false,
-          leading: Icon(
-            Icons.arrow_back_sharp,
-            color: FlutterFlowTheme.of(context).secondaryText,
-            size: 24.0,
-          ),
           title: Text(
             'Applications',
             style: FlutterFlowTheme.of(context).headlineMedium.override(

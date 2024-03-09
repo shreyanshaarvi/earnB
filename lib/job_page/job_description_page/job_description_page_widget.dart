@@ -123,26 +123,22 @@ class _JobDescriptionPageWidgetState extends State<JobDescriptionPageWidget>
                 automaticallyImplyLeading: false,
                 leading: Align(
                   alignment: AlignmentDirectional(0.0, -0.95),
-                  child: Icon(
-                    Icons.arrow_back_sharp,
-                    color: FlutterFlowTheme.of(context).secondaryText,
-                    size: 28.0,
-                  ),
-                ),
-                actions: [
-                  Align(
-                    alignment: AlignmentDirectional(-0.1, -0.95),
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
-                      child: Icon(
-                        Icons.bookmark,
-                        color: FlutterFlowTheme.of(context).secondaryText,
-                        size: 24.0,
-                      ),
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      context.safePop();
+                    },
+                    child: Icon(
+                      Icons.arrow_back_sharp,
+                      color: FlutterFlowTheme.of(context).secondaryText,
+                      size: 28.0,
                     ),
                   ),
-                ],
+                ),
+                actions: [],
                 flexibleSpace: FlexibleSpaceBar(
                   background: StreamBuilder<CompanyProfileRecord>(
                     stream: CompanyProfileRecord.getDocument(

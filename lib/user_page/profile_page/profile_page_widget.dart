@@ -214,16 +214,18 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  Container(
-                                    width: 60.0,
-                                    height: 60.0,
-                                    clipBehavior: Clip.antiAlias,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Image.network(
-                                      'https://picsum.photos/seed/194/600',
-                                      fit: BoxFit.cover,
+                                  AuthUserStreamWidget(
+                                    builder: (context) => Container(
+                                      width: 60.0,
+                                      height: 60.0,
+                                      clipBehavior: Clip.antiAlias,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Image.network(
+                                        currentUserPhoto,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
                                   Row(
@@ -652,13 +654,6 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.end,
                                       children: [
-                                        if (columnEducationRecord.isVerified)
-                                          Icon(
-                                            Icons.verified_user,
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            size: 24.0,
-                                          ),
                                         Text(
                                           columnEducationRecord.address,
                                           style: FlutterFlowTheme.of(context)
@@ -704,18 +699,29 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                   FlutterFlowTheme.of(context).bodyLargeFamily),
                             ),
                       ),
-                      Text(
-                        'Create More',
-                        style: FlutterFlowTheme.of(context).labelLarge.override(
-                              fontFamily:
-                                  FlutterFlowTheme.of(context).labelLargeFamily,
-                              color: Color(0xFFFFCC33),
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.w600,
-                              useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                  FlutterFlowTheme.of(context)
-                                      .labelLargeFamily),
-                            ),
+                      InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          context.pushNamed('AddResum');
+                        },
+                        child: Text(
+                          'Create More',
+                          style: FlutterFlowTheme.of(context)
+                              .labelLarge
+                              .override(
+                                fontFamily: FlutterFlowTheme.of(context)
+                                    .labelLargeFamily,
+                                color: Color(0xFFFFCC33),
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w600,
+                                useGoogleFonts: GoogleFonts.asMap().containsKey(
+                                    FlutterFlowTheme.of(context)
+                                        .labelLargeFamily),
+                              ),
+                        ),
                       ),
                     ],
                   ),

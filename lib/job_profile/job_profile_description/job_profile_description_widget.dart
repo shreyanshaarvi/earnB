@@ -122,8 +122,8 @@ class _JobProfileDescriptionWidgetState
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                           ),
-                          child: Image.asset(
-                            'assets/images/gamer.png',
+                          child: Image.network(
+                            currentUserPhoto,
                             fit: BoxFit.cover,
                           ),
                         ),

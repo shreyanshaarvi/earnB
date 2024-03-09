@@ -3,9 +3,6 @@ export '/start_page/start_screen/start_screen_widget.dart'
     show StartScreenWidget;
 export '/start_page/start_page2/start_page2_widget.dart' show StartPage2Widget;
 export '/job_page/home_page/home_page_widget.dart' show HomePageWidget;
-export '/job_page/message/message_widget.dart' show MessageWidget;
-export '/user_page/notifications/notifications_widget.dart'
-    show NotificationsWidget;
 export '/job_page/job_description_page/job_description_page_widget.dart'
     show JobDescriptionPageWidget;
 export '/company_page/second_stage/second_stage_widget.dart'

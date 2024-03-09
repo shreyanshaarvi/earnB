@@ -172,16 +172,18 @@ class _JobProfileWidgetState extends State<JobProfileWidget> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
-                                      Container(
-                                        width: 60.0,
-                                        height: 60.0,
-                                        clipBehavior: Clip.antiAlias,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: Image.asset(
-                                          'assets/images/gamer.png',
-                                          fit: BoxFit.cover,
+                                      AuthUserStreamWidget(
+                                        builder: (context) => Container(
+                                          width: 60.0,
+                                          height: 60.0,
+                                          clipBehavior: Clip.antiAlias,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Image.network(
+                                            currentUserPhoto,
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
                                       ),
                                       Row(

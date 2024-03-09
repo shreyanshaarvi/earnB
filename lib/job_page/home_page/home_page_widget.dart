@@ -75,16 +75,18 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Container(
-                      width: 100.0,
-                      height: 100.0,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
-                      child: Image.asset(
-                        'assets/images/gamer.png',
-                        fit: BoxFit.cover,
+                    AuthUserStreamWidget(
+                      builder: (context) => Container(
+                        width: 100.0,
+                        height: 100.0,
+                        clipBehavior: Clip.antiAlias,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                        ),
+                        child: Image.network(
+                          currentUserPhoto,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     Padding(
@@ -145,40 +147,49 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
                           10.0, 10.0, 10.0, 20.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                10.0, 0.0, 0.0, 0.0),
-                            child: Icon(
-                              Icons.info_outline,
-                              color: FlutterFlowTheme.of(context).accent2,
-                              size: 24.0,
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          context.pushNamed('ProfilePage');
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  10.0, 0.0, 0.0, 0.0),
+                              child: Icon(
+                                Icons.info_outline,
+                                color: FlutterFlowTheme.of(context).accent2,
+                                size: 24.0,
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                10.0, 0.0, 0.0, 0.0),
-                            child: AutoSizeText(
-                              'Personal Info',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: FlutterFlowTheme.of(context)
-                                        .bodyMediumFamily,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    fontSize: 16.5,
-                                    fontWeight: FontWeight.w600,
-                                    useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey(
-                                            FlutterFlowTheme.of(context)
-                                                .bodyMediumFamily),
-                                  ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  10.0, 0.0, 0.0, 0.0),
+                              child: AutoSizeText(
+                                'Personal Info',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: FlutterFlowTheme.of(context)
+                                          .bodyMediumFamily,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      fontSize: 16.5,
+                                      fontWeight: FontWeight.w600,
+                                      useGoogleFonts: GoogleFonts.asMap()
+                                          .containsKey(
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMediumFamily),
+                                    ),
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     Padding(
@@ -238,7 +249,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          context.pushNamed('AllResume');
+                          context.pushNamed('AddResum');
                         },
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
@@ -534,9 +545,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Welcome',
-                      style: FlutterFlowTheme.of(context).titleMedium,
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                      child: Text(
+                        'Welcome',
+                        style: FlutterFlowTheme.of(context).titleMedium,
+                      ),
                     ),
                     AuthUserStreamWidget(
                       builder: (context) => Text(
@@ -547,29 +562,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   ],
                 ),
                 AuthUserStreamWidget(
-                  builder: (context) => InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      GoRouter.of(context).prepareAuthEvent();
-                      await authManager.signOut();
-                      GoRouter.of(context).clearRedirectLocation();
-
-                      context.goNamedAuth('StartScreen', context.mounted);
-                    },
-                    child: Container(
-                      width: 46.0,
-                      height: 46.0,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
-                      child: Image.asset(
-                        'assets/images/gamer.png',
-                        fit: BoxFit.cover,
-                      ),
+                  builder: (context) => Container(
+                    width: 46.0,
+                    height: 46.0,
+                    clipBehavior: Clip.antiAlias,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                    ),
+                    child: Image.network(
+                      currentUserPhoto,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
@@ -604,19 +606,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               fontWeight: FontWeight.w600,
                               useGoogleFonts: GoogleFonts.asMap().containsKey(
                                   FlutterFlowTheme.of(context).bodyLargeFamily),
-                            ),
-                      ),
-                      Text(
-                        'See all',
-                        style: FlutterFlowTheme.of(context).labelLarge.override(
-                              fontFamily:
-                                  FlutterFlowTheme.of(context).labelLargeFamily,
-                              color: FlutterFlowTheme.of(context).accent2,
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.w600,
-                              useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                  FlutterFlowTheme.of(context)
-                                      .labelLargeFamily),
                             ),
                       ),
                     ],
@@ -753,6 +742,20 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         ),
                                                       ),
                                                       shape: BoxShape.circle,
+                                                    ),
+                                                    child: Container(
+                                                      width: 120.0,
+                                                      height: 120.0,
+                                                      clipBehavior:
+                                                          Clip.antiAlias,
+                                                      decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                      ),
+                                                      child: Image.network(
+                                                        columnCompanyProfileRecord
+                                                            .logoUrl,
+                                                        fit: BoxFit.cover,
+                                                      ),
                                                     ),
                                                   ),
                                                   Column(
@@ -1025,7 +1028,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Recommended Jobs',
+                        ' Jobs',
                         style: FlutterFlowTheme.of(context).bodyLarge.override(
                               fontFamily:
                                   FlutterFlowTheme.of(context).bodyLargeFamily,

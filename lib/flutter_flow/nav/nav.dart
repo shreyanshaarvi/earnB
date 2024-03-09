@@ -106,18 +106,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               : HomePageWidget(),
         ),
         FFRoute(
-          name: 'Message',
-          path: '/message',
-          builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'Message')
-              : MessageWidget(),
-        ),
-        FFRoute(
-          name: 'Notifications',
-          path: '/notifications',
-          builder: (context, params) => NotificationsWidget(),
-        ),
-        FFRoute(
           name: 'JobDescriptionPage',
           path: '/jobDescriptionPage',
           builder: (context, params) => JobDescriptionPageWidget(
