@@ -149,7 +149,7 @@ class _AllResumeWidgetState extends State<AllResumeWidget> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Text(
-                                  'Jr Executive',
+                                  'Logo Designing ',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyLarge
                                       .override(
@@ -170,7 +170,7 @@ class _AllResumeWidgetState extends State<AllResumeWidget> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        'UI Designer',
+                                        ' Designer',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(

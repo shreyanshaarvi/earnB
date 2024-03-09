@@ -80,13 +80,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? NavBarPage() : SignUpWidget(),
+          appStateNotifier.loggedIn ? NavBarPage() : StartScreenWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? NavBarPage() : SignUpWidget(),
+              appStateNotifier.loggedIn ? NavBarPage() : StartScreenWidget(),
         ),
         FFRoute(
           name: 'StartScreen',
@@ -192,21 +192,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => CompaniesWidget(),
         ),
         FFRoute(
-          name: 'setting',
-          path: '/setting',
-          builder: (context, params) => SettingWidget(),
-        ),
-        FFRoute(
-          name: 'SignUp',
-          path: '/signUp',
-          builder: (context, params) => SignUpWidget(),
-        ),
-        FFRoute(
-          name: 'SignIN',
-          path: '/signIN',
-          builder: (context, params) => SignINWidget(),
-        ),
-        FFRoute(
           name: 'JobProfile',
           path: '/jobProfile',
           builder: (context, params) => JobProfileWidget(),
@@ -263,6 +248,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'ExperienceAll',
           path: '/experienceAll',
           builder: (context, params) => ExperienceAllWidget(),
+        ),
+        FFRoute(
+          name: 'SignIN',
+          path: '/signIN',
+          builder: (context, params) => SignINWidget(),
+        ),
+        FFRoute(
+          name: 'SignUp',
+          path: '/signUp',
+          builder: (context, params) => SignUpWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -429,7 +424,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.location);
-            return '/signUp';
+            return '/startScreen';
           }
           return null;
         },
@@ -443,11 +438,15 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Container(
-                  color: Colors.transparent,
-                  child: Image.asset(
-                    'assets/images/bee.png',
-                    fit: BoxFit.contain,
+              ? Center(
+                  child: SizedBox(
+                    width: 50.0,
+                    height: 50.0,
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        FlutterFlowTheme.of(context).primary,
+                      ),
+                    ),
                   ),
                 )
               : page;

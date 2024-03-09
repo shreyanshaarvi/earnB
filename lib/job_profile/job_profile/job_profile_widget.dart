@@ -65,10 +65,19 @@ class _JobProfileWidgetState extends State<JobProfileWidget> {
         appBar: AppBar(
           backgroundColor: Color(0xFFFFCC33),
           automaticallyImplyLeading: false,
-          leading: Icon(
-            Icons.arrow_back_sharp,
-            color: FlutterFlowTheme.of(context).secondaryText,
-            size: 24.0,
+          leading: InkWell(
+            splashColor: Colors.transparent,
+            focusColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            onTap: () async {
+              context.safePop();
+            },
+            child: Icon(
+              Icons.arrow_back_sharp,
+              color: FlutterFlowTheme.of(context).secondaryText,
+              size: 24.0,
+            ),
           ),
           title: Text(
             'Job Profiles',
@@ -170,8 +179,8 @@ class _JobProfileWidgetState extends State<JobProfileWidget> {
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
                                         ),
-                                        child: Image.network(
-                                          'https://picsum.photos/seed/194/600',
+                                        child: Image.asset(
+                                          'assets/images/gamer.png',
                                           fit: BoxFit.cover,
                                         ),
                                       ),

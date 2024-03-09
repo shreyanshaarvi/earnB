@@ -126,8 +126,8 @@ class _StartPage2WidgetState extends State<StartPage2Widget> {
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 50.0),
                 child: FFButtonWidget(
-                  onPressed: () {
-                    print('Button pressed ...');
+                  onPressed: () async {
+                    context.pushNamed('StartScreen');
                   },
                   text: 'Explore',
                   options: FFButtonOptions(

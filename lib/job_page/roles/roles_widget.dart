@@ -183,7 +183,8 @@ class _RolesWidgetState extends State<RolesWidget> {
                                       ),
                                     ),
                                     Text(
-                                      '289 Views',
+                                      gridViewJobRolesRecord.noOfSearch
+                                          .toString(),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(

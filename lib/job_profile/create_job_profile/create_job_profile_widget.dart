@@ -1,17 +1,11 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
-import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_timer.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/flutter_flow/upload_data.dart';
 import '/flutter_flow/random_data_util.dart' as random_data;
-import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:styled_divider/styled_divider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
@@ -51,10 +45,8 @@ class _CreateJobProfileWidgetState extends State<CreateJobProfileWidget> {
     _model.contactMailController ??= TextEditingController();
     _model.contactMailFocusNode ??= FocusNode();
 
-    _model.textController5 ??= TextEditingController(text: 'UI Designer');
+    _model.textController5 ??= TextEditingController();
     _model.textFieldFocusNode3 ??= FocusNode();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -76,10 +68,19 @@ class _CreateJobProfileWidgetState extends State<CreateJobProfileWidget> {
         appBar: AppBar(
           backgroundColor: Color(0xFFFFCC33),
           automaticallyImplyLeading: false,
-          leading: Icon(
-            Icons.arrow_back_sharp,
-            color: FlutterFlowTheme.of(context).secondaryText,
-            size: 24.0,
+          leading: InkWell(
+            splashColor: Colors.transparent,
+            focusColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            onTap: () async {
+              context.safePop();
+            },
+            child: Icon(
+              Icons.arrow_back_sharp,
+              color: FlutterFlowTheme.of(context).secondaryText,
+              size: 24.0,
+            ),
           ),
           title: Text(
             'Create Job Profile',
@@ -101,252 +102,6 @@ class _CreateJobProfileWidgetState extends State<CreateJobProfileWidget> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Align(
-                  alignment: AlignmentDirectional(0.0, 0.0),
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Material(
-                              color: Colors.transparent,
-                              elevation: 2.0,
-                              shape: const CircleBorder(),
-                              child: Container(
-                                width: 70.0,
-                                height: 70.0,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: Image.network(
-                                      valueOrDefault<String>(
-                                        _model.uploadedFileUrl,
-                                        'https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg',
-                                      ),
-                                    ).image,
-                                  ),
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: Color(0xFFFFCC33),
-                                    width: 2.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            FFButtonWidget(
-                              onPressed: () async {
-                                final selectedMedia =
-                                    await selectMediaWithSourceBottomSheet(
-                                  context: context,
-                                  imageQuality: 84,
-                                  allowPhoto: true,
-                                  includeBlurHash: true,
-                                );
-                                if (selectedMedia != null &&
-                                    selectedMedia.every((m) =>
-                                        validateFileFormat(
-                                            m.storagePath, context))) {
-                                  setState(() => _model.isDataUploading = true);
-                                  var selectedUploadedFiles =
-                                      <FFUploadedFile>[];
-
-                                  var downloadUrls = <String>[];
-                                  try {
-                                    showUploadMessage(
-                                      context,
-                                      'Uploading file...',
-                                      showLoading: true,
-                                    );
-                                    selectedUploadedFiles = selectedMedia
-                                        .map((m) => FFUploadedFile(
-                                              name:
-                                                  m.storagePath.split('/').last,
-                                              bytes: m.bytes,
-                                              height: m.dimensions?.height,
-                                              width: m.dimensions?.width,
-                                              blurHash: m.blurHash,
-                                            ))
-                                        .toList();
-
-                                    downloadUrls = (await Future.wait(
-                                      selectedMedia.map(
-                                        (m) async => await uploadData(
-                                            m.storagePath, m.bytes),
-                                      ),
-                                    ))
-                                        .where((u) => u != null)
-                                        .map((u) => u!)
-                                        .toList();
-                                  } finally {
-                                    ScaffoldMessenger.of(context)
-                                        .hideCurrentSnackBar();
-                                    _model.isDataUploading = false;
-                                  }
-                                  if (selectedUploadedFiles.length ==
-                                          selectedMedia.length &&
-                                      downloadUrls.length ==
-                                          selectedMedia.length) {
-                                    setState(() {
-                                      _model.uploadedLocalFile =
-                                          selectedUploadedFiles.first;
-                                      _model.uploadedFileUrl =
-                                          downloadUrls.first;
-                                    });
-                                    showUploadMessage(context, 'Success!');
-                                  } else {
-                                    setState(() {});
-                                    showUploadMessage(
-                                        context, 'Failed to upload data');
-                                    return;
-                                  }
-                                }
-                              },
-                              text: 'Upload',
-                              options: FFButtonOptions(
-                                height: 40.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    24.0, 0.0, 24.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: Color(0xFFFFCC33),
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      fontFamily: FlutterFlowTheme.of(context)
-                                          .titleSmallFamily,
-                                      color: Colors.white,
-                                      useGoogleFonts: GoogleFonts.asMap()
-                                          .containsKey(
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmallFamily),
-                                    ),
-                                elevation: 3.0,
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            ),
-                          ]
-                              .divide(SizedBox(height: 10.0))
-                              .around(SizedBox(height: 10.0)),
-                        ),
-                        SizedBox(
-                          height: 100.0,
-                          child: StyledVerticalDivider(
-                            thickness: 2.0,
-                            color: Color(0xFFFFCC33),
-                            lineStyle: DividerLineStyle.dashed,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              10.0, 0.0, 0.0, 0.0),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.all(10.0),
-                                child: Text(
-                                  currentUserUid.maybeHandleOverflow(
-                                      maxChars: 14),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .bodyMediumFamily,
-                                        fontWeight: FontWeight.w600,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMediumFamily),
-                                      ),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    10.0, 0.0, 10.0, 10.0),
-                                child: AuthUserStreamWidget(
-                                  builder: (context) => Text(
-                                    currentUserDisplayName,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMediumFamily,
-                                          fontWeight: FontWeight.w600,
-                                          useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMediumFamily),
-                                        ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    10.0, 0.0, 10.0, 10.0),
-                                child: AuthUserStreamWidget(
-                                  builder: (context) => Text(
-                                    currentPhoneNumber,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMediumFamily,
-                                          fontWeight: FontWeight.w600,
-                                          useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMediumFamily),
-                                        ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    10.0, 0.0, 10.0, 10.0),
-                                child: Text(
-                                  currentUserEmail,
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .bodyMediumFamily,
-                                        fontWeight: FontWeight.w600,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMediumFamily),
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ]
-                          .divide(SizedBox(width: 10.0))
-                          .around(SizedBox(width: 10.0)),
-                    ),
-                  ),
-                ),
-                StyledDivider(
-                  thickness: 2.0,
-                  color: Color(0xFFFFCC33),
-                  lineStyle: DividerLineStyle.dashed,
-                ),
                 Padding(
                   padding: EdgeInsets.all(10.0),
                   child: Row(
@@ -502,353 +257,10 @@ class _CreateJobProfileWidgetState extends State<CreateJobProfileWidget> {
                                           .asValidator(context),
                                     ),
                                   ),
-                                  PinCodeTextField(
-                                    autoDisposeControllers: false,
-                                    appContext: context,
-                                    length: 4,
-                                    textStyle:
-                                        FlutterFlowTheme.of(context).bodyLarge,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    enableActiveFill: false,
-                                    autoFocus: true,
-                                    enablePinAutofill: false,
-                                    errorTextSpace: 16.0,
-                                    showCursor: true,
-                                    cursorColor:
-                                        FlutterFlowTheme.of(context).primary,
-                                    obscureText: false,
-                                    hintCharacter: '●',
-                                    pinTheme: PinTheme(
-                                      fieldHeight: 44.0,
-                                      fieldWidth: 44.0,
-                                      borderWidth: 2.0,
-                                      borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(12.0),
-                                        bottomRight: Radius.circular(12.0),
-                                        topLeft: Radius.circular(12.0),
-                                        topRight: Radius.circular(12.0),
-                                      ),
-                                      shape: PinCodeFieldShape.box,
-                                      activeColor: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                      inactiveColor:
-                                          FlutterFlowTheme.of(context)
-                                              .alternate,
-                                      selectedColor:
-                                          FlutterFlowTheme.of(context).primary,
-                                      activeFillColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                      inactiveFillColor:
-                                          FlutterFlowTheme.of(context)
-                                              .alternate,
-                                      selectedFillColor:
-                                          FlutterFlowTheme.of(context).primary,
-                                    ),
-                                    controller: _model.pinCodeController,
-                                    onChanged: (_) {},
-                                    autovalidateMode:
-                                        AutovalidateMode.onUserInteraction,
-                                    validator: _model.pinCodeControllerValidator
-                                        .asValidator(context),
-                                  ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Resend OTP in ',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMediumFamily,
-                                              fontSize: 11.0,
-                                              fontWeight: FontWeight.bold,
-                                              useGoogleFonts: GoogleFonts
-                                                      .asMap()
-                                                  .containsKey(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMediumFamily),
-                                            ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            10.0, 0.0, 0.0, 0.0),
-                                        child: FlutterFlowTimer(
-                                          initialTime: _model.timerMilliseconds,
-                                          getDisplayTime: (value) =>
-                                              StopWatchTimer.getDisplayTime(
-                                            value,
-                                            hours: false,
-                                            milliSecond: false,
-                                          ),
-                                          controller: _model.timerController,
-                                          updateStateInterval:
-                                              Duration(milliseconds: 1000),
-                                          onChanged: (value, displayTime,
-                                              shouldUpdate) {
-                                            _model.timerMilliseconds = value;
-                                            _model.timerValue = displayTime;
-                                            if (shouldUpdate) setState(() {});
-                                          },
-                                          onEnded: () async {
-                                            setState(() {
-                                              _model.isOTPSend = false;
-                                            });
-                                          },
-                                          textAlign: TextAlign.start,
-                                          style: FlutterFlowTheme.of(context)
-                                              .headlineSmall
-                                              .override(
-                                                fontFamily:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineSmallFamily,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .error,
-                                                fontSize: 12.0,
-                                                fontWeight: FontWeight.w600,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(FlutterFlowTheme
-                                                            .of(context)
-                                                        .headlineSmallFamily),
-                                              ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
                                 ]
                                     .divide(SizedBox(height: 7.0))
                                     .around(SizedBox(height: 7.0)),
                               ),
-                            ),
-                            Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 15.0, 0.0, 0.0),
-                                  child: FFButtonWidget(
-                                    onPressed: _model.isOTPSend!
-                                        ? null
-                                        : () async {
-                                            var _shouldSetState = false;
-                                            setState(() {
-                                              _model.otpValue =
-                                                  random_data.randomString(
-                                                4,
-                                                4,
-                                                false,
-                                                false,
-                                                true,
-                                              );
-                                            });
-                                            _model.apiResultc37 =
-                                                await SmsOtpCall.call(
-                                              otpvalue: _model.otpValue,
-                                              numbers: _model
-                                                  .contactPhoneNumberController
-                                                  .text,
-                                            );
-                                            _shouldSetState = true;
-                                            if ((_model
-                                                    .apiResultc37?.succeeded ??
-                                                true)) {
-                                              setState(() {
-                                                _model.isOTPSend = true;
-                                              });
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                    SmsOtpCall.message(
-                                                      (_model.apiResultc37
-                                                              ?.jsonBody ??
-                                                          ''),
-                                                    )!,
-                                                    style: TextStyle(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
-                                                    ),
-                                                  ),
-                                                  duration: Duration(
-                                                      milliseconds: 4000),
-                                                  backgroundColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .secondary,
-                                                ),
-                                              );
-                                              if (_shouldSetState)
-                                                setState(() {});
-                                              return;
-                                            } else {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                    SmsOtpCall.message(
-                                                      (_model.apiResultc37
-                                                              ?.jsonBody ??
-                                                          ''),
-                                                    )!,
-                                                    style: TextStyle(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
-                                                    ),
-                                                  ),
-                                                  duration: Duration(
-                                                      milliseconds: 4000),
-                                                  backgroundColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .secondary,
-                                                ),
-                                              );
-                                              if (_shouldSetState)
-                                                setState(() {});
-                                              return;
-                                            }
-
-                                            if (_shouldSetState)
-                                              setState(() {});
-                                          },
-                                    text: 'Send OTP',
-                                    options: FFButtonOptions(
-                                      width: 117.0,
-                                      height: 40.0,
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          24.0, 0.0, 24.0, 0.0),
-                                      iconPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              0.0, 0.0, 0.0, 0.0),
-                                      color: Color(0xFFFFCC33),
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .override(
-                                            fontFamily:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmallFamily,
-                                            color: Colors.white,
-                                            useGoogleFonts: GoogleFonts.asMap()
-                                                .containsKey(
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmallFamily),
-                                          ),
-                                      elevation: 3.0,
-                                      borderSide: BorderSide(
-                                        color: Colors.transparent,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      disabledColor:
-                                          FlutterFlowTheme.of(context).accent2,
-                                      hoverColor:
-                                          FlutterFlowTheme.of(context).info,
-                                      hoverTextColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                    ),
-                                  ),
-                                ),
-                                if (_model.isOTPSend ?? true)
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 15.0, 0.0, 0.0),
-                                    child: FFButtonWidget(
-                                      onPressed: _model.isNumberVerified!
-                                          ? null
-                                          : () async {
-                                              if (_model.otpValue ==
-                                                  _model.pinCodeController!
-                                                      .text) {
-                                                setState(() {
-                                                  _model.isNumberVerified =
-                                                      true;
-                                                });
-                                                return;
-                                              } else {
-                                                setState(() {
-                                                  _model.otpValue = null;
-                                                  _model.isNumberVerified =
-                                                      false;
-                                                  _model.isOTPSend = false;
-                                                });
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  SnackBar(
-                                                    content: Text(
-                                                      'Failed To verify OTP',
-                                                      style: TextStyle(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
-                                                      ),
-                                                    ),
-                                                    duration: Duration(
-                                                        milliseconds: 4000),
-                                                    backgroundColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .secondary,
-                                                  ),
-                                                );
-                                                return;
-                                              }
-                                            },
-                                      text: 'Verify OTP',
-                                      options: FFButtonOptions(
-                                        width: 117.0,
-                                        height: 40.0,
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            24.0, 0.0, 24.0, 0.0),
-                                        iconPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                0.0, 0.0, 0.0, 0.0),
-                                        color: Color(0xFFFFCC33),
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                              fontFamily:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmallFamily,
-                                              color: Colors.white,
-                                              useGoogleFonts: GoogleFonts
-                                                      .asMap()
-                                                  .containsKey(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .titleSmallFamily),
-                                            ),
-                                        elevation: 3.0,
-                                        borderSide: BorderSide(
-                                          color: Colors.transparent,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                        disabledColor:
-                                            FlutterFlowTheme.of(context)
-                                                .accent2,
-                                        hoverColor:
-                                            FlutterFlowTheme.of(context).info,
-                                        hoverTextColor:
-                                            FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                      ),
-                                    ),
-                                  ),
-                              ],
                             ),
                           ]
                               .divide(SizedBox(width: 9.0))
@@ -1142,26 +554,6 @@ class _CreateJobProfileWidgetState extends State<CreateJobProfileWidget> {
                                   ),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 10.0, 0.0),
-                            child: InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                setState(() {
-                                  _model.resume = null;
-                                });
-                              },
-                              child: Icon(
-                                Icons.lock_reset_outlined,
-                                color: FlutterFlowTheme.of(context).error,
-                                size: 24.0,
-                              ),
-                            ),
-                          ),
                         ],
                       ),
                     ],
@@ -1393,26 +785,6 @@ class _CreateJobProfileWidgetState extends State<CreateJobProfileWidget> {
                             ),
                       ),
                     ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
-                      child: InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          setState(() {
-                            _model.educationRef = [];
-                          });
-                        },
-                        child: Icon(
-                          Icons.lock_reset_outlined,
-                          color: FlutterFlowTheme.of(context).error,
-                          size: 24.0,
-                        ),
-                      ),
-                    ),
                   ],
                 ),
                 Padding(
@@ -1639,26 +1011,6 @@ class _CreateJobProfileWidgetState extends State<CreateJobProfileWidget> {
                                   FlutterFlowTheme.of(context)
                                       .bodyMediumFamily),
                             ),
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
-                      child: InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          setState(() {
-                            _model.experienceRef = [];
-                          });
-                        },
-                        child: Icon(
-                          Icons.lock_reset_outlined,
-                          color: FlutterFlowTheme.of(context).error,
-                          size: 24.0,
-                        ),
                       ),
                     ),
                   ],

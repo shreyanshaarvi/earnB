@@ -116,240 +116,251 @@ class _JobDescriptionPageWidgetState extends State<JobDescriptionPageWidget>
                     ),
               ),
             ),
-            appBar: AppBar(
-              backgroundColor: Color(0xFFFCC122),
-              automaticallyImplyLeading: false,
-              leading: Align(
-                alignment: AlignmentDirectional(0.0, -0.95),
-                child: Icon(
-                  Icons.arrow_back_sharp,
-                  color: FlutterFlowTheme.of(context).secondaryText,
-                  size: 28.0,
-                ),
-              ),
-              actions: [
-                Align(
-                  alignment: AlignmentDirectional(-0.1, -0.95),
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
-                    child: Icon(
-                      Icons.bookmark,
-                      color: FlutterFlowTheme.of(context).secondaryText,
-                      size: 24.0,
-                    ),
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(250.0),
+              child: AppBar(
+                backgroundColor: Color(0xFFFCC122),
+                automaticallyImplyLeading: false,
+                leading: Align(
+                  alignment: AlignmentDirectional(0.0, -0.95),
+                  child: Icon(
+                    Icons.arrow_back_sharp,
+                    color: FlutterFlowTheme.of(context).secondaryText,
+                    size: 28.0,
                   ),
                 ),
-              ],
-              flexibleSpace: FlexibleSpaceBar(
-                background: StreamBuilder<CompanyProfileRecord>(
-                  stream: CompanyProfileRecord.getDocument(
-                      jobDescriptionPageJobCollectionRecord.companyRef!),
-                  builder: (context, snapshot) {
-                    // Customize what your widget looks like when it's loading.
-                    if (!snapshot.hasData) {
-                      return Center(
-                        child: SizedBox(
-                          width: 50.0,
-                          height: 50.0,
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              FlutterFlowTheme.of(context).primary,
+                actions: [
+                  Align(
+                    alignment: AlignmentDirectional(-0.1, -0.95),
+                    child: Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
+                      child: Icon(
+                        Icons.bookmark,
+                        color: FlutterFlowTheme.of(context).secondaryText,
+                        size: 24.0,
+                      ),
+                    ),
+                  ),
+                ],
+                flexibleSpace: FlexibleSpaceBar(
+                  background: StreamBuilder<CompanyProfileRecord>(
+                    stream: CompanyProfileRecord.getDocument(
+                        jobDescriptionPageJobCollectionRecord.companyRef!),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 50.0,
+                            height: 50.0,
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                FlutterFlowTheme.of(context).primary,
+                              ),
                             ),
                           ),
+                        );
+                      }
+                      final containerCompanyProfileRecord = snapshot.data!;
+                      return Container(
+                        width: 100.0,
+                        height: 149.0,
+                        decoration: BoxDecoration(
+                          color: Color(0xFFFFCC33),
+                          borderRadius: BorderRadius.circular(0.0),
                         ),
-                      );
-                    }
-                    final containerCompanyProfileRecord = snapshot.data!;
-                    return Container(
-                      width: 100.0,
-                      height: 149.0,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).primary,
-                        borderRadius: BorderRadius.circular(0.0),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            20.0, 50.0, 20.0, 0.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Container(
-                              width: 80.0,
-                              height: 80.0,
-                              clipBehavior: Clip.antiAlias,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              20.0, 30.0, 20.0, 0.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Container(
+                                width: 80.0,
+                                height: 80.0,
+                                clipBehavior: Clip.antiAlias,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                ),
+                                child: CachedNetworkImage(
+                                  fadeInDuration: Duration(milliseconds: 500),
+                                  fadeOutDuration: Duration(milliseconds: 500),
+                                  imageUrl:
+                                      containerCompanyProfileRecord.logoUrl,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                              child: CachedNetworkImage(
-                                fadeInDuration: Duration(milliseconds: 500),
-                                fadeOutDuration: Duration(milliseconds: 500),
-                                imageUrl: containerCompanyProfileRecord.logoUrl,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 6.0, 0.0, 0.0),
-                              child: Text(
-                                jobDescriptionPageJobCollectionRecord.jName,
-                                style: FlutterFlowTheme.of(context)
-                                    .titleLarge
-                                    .override(
-                                      fontFamily: FlutterFlowTheme.of(context)
-                                          .titleLargeFamily,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      useGoogleFonts: GoogleFonts.asMap()
-                                          .containsKey(
-                                              FlutterFlowTheme.of(context)
-                                                  .titleLargeFamily),
-                                    ),
-                              ),
-                            ),
-                            Align(
-                              alignment: AlignmentDirectional(0.0, -1.0),
-                              child: Padding(
+                              Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 5.0, 0.0, 0.0),
+                                    0.0, 6.0, 0.0, 10.0),
                                 child: Text(
-                                  containerCompanyProfileRecord.cName,
+                                  jobDescriptionPageJobCollectionRecord.jName,
                                   style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
+                                      .titleLarge
                                       .override(
                                         fontFamily: FlutterFlowTheme.of(context)
-                                            .bodyMediumFamily,
+                                            .titleLargeFamily,
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryText,
-                                        fontWeight: FontWeight.w600,
                                         useGoogleFonts: GoogleFonts.asMap()
                                             .containsKey(
                                                 FlutterFlowTheme.of(context)
-                                                    .bodyMediumFamily),
+                                                    .titleLargeFamily),
                                       ),
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(10.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Container(
-                                    width: 90.0,
-                                    height: 36.0,
-                                    decoration: BoxDecoration(
-                                      color: Color(0x58B8D8C8),
-                                      borderRadius: BorderRadius.circular(20.0),
-                                    ),
-                                    child: Align(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
-                                      child: Text(
-                                        jobDescriptionPageJobCollectionRecord
-                                            .jCategory,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily:
+                              Align(
+                                alignment: AlignmentDirectional(0.0, -1.0),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 1.0, 0.0, 0.0),
+                                  child: Text(
+                                    containerCompanyProfileRecord.cName,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMediumFamily,
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          fontWeight: FontWeight.w600,
+                                          useGoogleFonts: GoogleFonts.asMap()
+                                              .containsKey(
                                                   FlutterFlowTheme.of(context)
-                                                      .bodyMediumFamily,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              fontSize: 13.0,
-                                              fontWeight: FontWeight.w600,
-                                              useGoogleFonts: GoogleFonts
-                                                      .asMap()
-                                                  .containsKey(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMediumFamily),
-                                            ),
-                                      ),
-                                    ),
+                                                      .bodyMediumFamily),
+                                        ),
                                   ),
-                                  Container(
-                                    width: 90.0,
-                                    height: 36.0,
-                                    decoration: BoxDecoration(
-                                      color: Color(0x7AB8D8C8),
-                                      borderRadius: BorderRadius.circular(20.0),
-                                    ),
-                                    child: Align(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
-                                      child: Text(
-                                        jobDescriptionPageJobCollectionRecord
-                                            .jType,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMediumFamily,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              fontSize: 13.0,
-                                              fontWeight: FontWeight.w600,
-                                              useGoogleFonts: GoogleFonts
-                                                      .asMap()
-                                                  .containsKey(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMediumFamily),
-                                            ),
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 90.0,
-                                    height: 35.6,
-                                    decoration: BoxDecoration(
-                                      color: Color(0x5FB8D8C8),
-                                      borderRadius: BorderRadius.circular(20.0),
-                                    ),
-                                    child: Align(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
-                                      child: Text(
-                                        jobDescriptionPageJobCollectionRecord
-                                            .jPost,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMediumFamily,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              fontSize: 13.0,
-                                              fontWeight: FontWeight.w500,
-                                              useGoogleFonts: GoogleFonts
-                                                      .asMap()
-                                                  .containsKey(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMediumFamily),
-                                            ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
-                            ),
-                          ],
+                              Padding(
+                                padding: EdgeInsets.all(10.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Container(
+                                      width: 90.0,
+                                      height: 36.0,
+                                      decoration: BoxDecoration(
+                                        color: Color(0x58B8D8C8),
+                                        borderRadius:
+                                            BorderRadius.circular(20.0),
+                                      ),
+                                      child: Align(
+                                        alignment:
+                                            AlignmentDirectional(0.0, 0.0),
+                                        child: Text(
+                                          jobDescriptionPageJobCollectionRecord
+                                              .jCategory,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMediumFamily,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                                fontSize: 13.0,
+                                                fontWeight: FontWeight.w600,
+                                                useGoogleFonts: GoogleFonts
+                                                        .asMap()
+                                                    .containsKey(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMediumFamily),
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      width: 90.0,
+                                      height: 36.0,
+                                      decoration: BoxDecoration(
+                                        color: Color(0x7AB8D8C8),
+                                        borderRadius:
+                                            BorderRadius.circular(20.0),
+                                      ),
+                                      child: Align(
+                                        alignment:
+                                            AlignmentDirectional(0.0, 0.0),
+                                        child: Text(
+                                          jobDescriptionPageJobCollectionRecord
+                                              .jType,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMediumFamily,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                                fontSize: 13.0,
+                                                fontWeight: FontWeight.w600,
+                                                useGoogleFonts: GoogleFonts
+                                                        .asMap()
+                                                    .containsKey(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMediumFamily),
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      width: 90.0,
+                                      height: 35.6,
+                                      decoration: BoxDecoration(
+                                        color: Color(0x5FB8D8C8),
+                                        borderRadius:
+                                            BorderRadius.circular(20.0),
+                                      ),
+                                      child: Align(
+                                        alignment:
+                                            AlignmentDirectional(0.0, 0.0),
+                                        child: Text(
+                                          jobDescriptionPageJobCollectionRecord
+                                              .jPost,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMediumFamily,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                                fontSize: 13.0,
+                                                fontWeight: FontWeight.w500,
+                                                useGoogleFonts: GoogleFonts
+                                                        .asMap()
+                                                    .containsKey(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMediumFamily),
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
+                centerTitle: false,
+                toolbarHeight: 250.0,
+                elevation: 0.0,
               ),
-              centerTitle: false,
-              toolbarHeight: 250.0,
-              elevation: 0.0,
             ),
             body: SafeArea(
               top: true,
@@ -927,7 +938,10 @@ class _JobDescriptionPageWidgetState extends State<JobDescriptionPageWidget>
                                                                                   Padding(
                                                                                     padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 15.0, 0.0),
                                                                                     child: Text(
-                                                                                      columnReviewRecord.like.length.toString(),
+                                                                                      valueOrDefault<String>(
+                                                                                        columnReviewRecord.jobRef?.id,
+                                                                                        '123456789',
+                                                                                      ),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                             color: FlutterFlowTheme.of(context).accent2,

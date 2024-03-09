@@ -46,10 +46,19 @@ class _CompaniesWidgetState extends State<CompaniesWidget> {
         appBar: AppBar(
           backgroundColor: Color(0xFFFFCC33),
           automaticallyImplyLeading: false,
-          leading: Icon(
-            Icons.arrow_back_sharp,
-            color: FlutterFlowTheme.of(context).secondaryText,
-            size: 24.0,
+          leading: InkWell(
+            splashColor: Colors.transparent,
+            focusColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            onTap: () async {
+              context.safePop();
+            },
+            child: Icon(
+              Icons.arrow_back_sharp,
+              color: FlutterFlowTheme.of(context).secondaryText,
+              size: 24.0,
+            ),
           ),
           title: Text(
             'Company',

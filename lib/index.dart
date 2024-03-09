@@ -23,9 +23,6 @@ export '/user_page/edit/edit_widget.dart' show EditWidget;
 export '/job_page/category_see_all/category_see_all_widget.dart'
     show CategorySeeAllWidget;
 export '/companies/companies_widget.dart' show CompaniesWidget;
-export '/user_page/setting/setting_widget.dart' show SettingWidget;
-export '/auth_page/sign_up/sign_up_widget.dart' show SignUpWidget;
-export '/auth_page/sign_i_n/sign_i_n_widget.dart' show SignINWidget;
 export '/job_profile/job_profile/job_profile_widget.dart' show JobProfileWidget;
 export '/job_profile/job_profile_description/job_profile_description_widget.dart'
     show JobProfileDescriptionWidget;
@@ -40,3 +37,5 @@ export '/expericence/expericence_widget.dart' show ExpericenceWidget;
 export '/job_profile/education/education_widget.dart' show EducationWidget;
 export '/job_profile/experience_all/experience_all_widget.dart'
     show ExperienceAllWidget;
+export '/auth_page/sign_i_n/sign_i_n_widget.dart' show SignINWidget;
+export '/auth_page/sign_up/sign_up_widget.dart' show SignUpWidget;

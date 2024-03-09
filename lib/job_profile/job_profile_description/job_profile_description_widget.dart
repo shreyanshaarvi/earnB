@@ -76,10 +76,19 @@ class _JobProfileDescriptionWidgetState
             appBar: AppBar(
               backgroundColor: Color(0xFFFFCC33),
               automaticallyImplyLeading: false,
-              leading: Icon(
-                Icons.arrow_back_sharp,
-                color: FlutterFlowTheme.of(context).secondaryText,
-                size: 24.0,
+              leading: InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () async {
+                  context.safePop();
+                },
+                child: Icon(
+                  Icons.arrow_back_sharp,
+                  color: FlutterFlowTheme.of(context).secondaryText,
+                  size: 24.0,
+                ),
               ),
               title: Text(
                 'Profile Description',
@@ -123,17 +132,21 @@ class _JobProfileDescriptionWidgetState
                     Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
-                      child: Text(
-                        'Rohan ',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily:
-                                  FlutterFlowTheme.of(context).bodyMediumFamily,
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w600,
-                              useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                  FlutterFlowTheme.of(context)
-                                      .bodyMediumFamily),
-                            ),
+                      child: AuthUserStreamWidget(
+                        builder: (context) => Text(
+                          currentUserDisplayName,
+                          style: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .override(
+                                fontFamily: FlutterFlowTheme.of(context)
+                                    .bodyMediumFamily,
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.w600,
+                                useGoogleFonts: GoogleFonts.asMap().containsKey(
+                                    FlutterFlowTheme.of(context)
+                                        .bodyMediumFamily),
+                              ),
+                        ),
                       ),
                     ),
                     Padding(
@@ -159,17 +172,6 @@ class _JobProfileDescriptionWidgetState
                                           .bodyMediumFamily),
                                 ),
                           ),
-                          if (jobProfileDescriptionEmployeeProfileRecord
-                              .isVerified)
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  6.0, 0.0, 0.0, 0.0),
-                              child: Icon(
-                                Icons.verified,
-                                color: Color(0xFF2F70FF),
-                                size: 18.0,
-                              ),
-                            ),
                         ],
                       ),
                     ),
@@ -576,13 +578,6 @@ class _JobProfileDescriptionWidgetState
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.end,
                                               children: [
-                                                Icon(
-                                                  Icons.verified_user,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
-                                                  size: 24.0,
-                                                ),
                                                 Text(
                                                   containerEducationRecord
                                                       .address,

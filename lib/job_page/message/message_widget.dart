@@ -230,8 +230,8 @@ class _MessageWidgetState extends State<MessageWidget> {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                             ),
-                            child: Image.network(
-                              'https://assets.stickpng.com/images/5842996fa6515b1e0ad75add.png',
+                            child: Image.asset(
+                              'assets/images/comet.png',
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -243,7 +243,7 @@ class _MessageWidgetState extends State<MessageWidget> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Burger King',
+                                  'Comet',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyLarge
                                       .override(
@@ -289,8 +289,8 @@ class _MessageWidgetState extends State<MessageWidget> {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                             ),
-                            child: Image.network(
-                              'https://assets.stickpng.com/images/5842996fa6515b1e0ad75add.png',
+                            child: Image.asset(
+                              'assets/images/growth_(1).png',
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -302,7 +302,7 @@ class _MessageWidgetState extends State<MessageWidget> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Burger King',
+                                  'Groww',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyLarge
                                       .override(
@@ -490,8 +490,8 @@ class _MessageWidgetState extends State<MessageWidget> {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                             ),
-                            child: Image.network(
-                              'https://assets.stickpng.com/images/5842996fa6515b1e0ad75add.png',
+                            child: Image.asset(
+                              'assets/images/thief.png',
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -503,7 +503,7 @@ class _MessageWidgetState extends State<MessageWidget> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Shreyansh',
+                                  'nandini',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyLarge
                                       .override(

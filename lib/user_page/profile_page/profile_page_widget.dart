@@ -47,27 +47,45 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
         appBar: AppBar(
           backgroundColor: Color(0xFFFFCC33),
           automaticallyImplyLeading: false,
-          leading: Icon(
-            Icons.arrow_back_rounded,
-            color: FlutterFlowTheme.of(context).secondaryText,
-            size: 24.0,
+          leading: InkWell(
+            splashColor: Colors.transparent,
+            focusColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            onTap: () async {
+              context.safePop();
+            },
+            child: Icon(
+              Icons.arrow_back_rounded,
+              color: FlutterFlowTheme.of(context).secondaryText,
+              size: 24.0,
+            ),
           ),
           actions: [
             Align(
               alignment: AlignmentDirectional(0.0, 0.0),
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
-                child: Text(
-                  'Edit',
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily:
-                            FlutterFlowTheme.of(context).bodyMediumFamily,
-                        color: FlutterFlowTheme.of(context).primaryBackground,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
-                        useGoogleFonts: GoogleFonts.asMap().containsKey(
-                            FlutterFlowTheme.of(context).bodyMediumFamily),
-                      ),
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    context.pushNamed('Edit');
+                  },
+                  child: Text(
+                    'Edit',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily:
+                              FlutterFlowTheme.of(context).bodyMediumFamily,
+                          color: FlutterFlowTheme.of(context).primaryBackground,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                          useGoogleFonts: GoogleFonts.asMap().containsKey(
+                              FlutterFlowTheme.of(context).bodyMediumFamily),
+                        ),
+                  ),
                 ),
               ),
             ),
@@ -100,16 +118,18 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                 ),
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
-                  child: Text(
-                    'Shreyansh Yadav',
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily:
-                              FlutterFlowTheme.of(context).bodyMediumFamily,
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w600,
-                          useGoogleFonts: GoogleFonts.asMap().containsKey(
-                              FlutterFlowTheme.of(context).bodyMediumFamily),
-                        ),
+                  child: AuthUserStreamWidget(
+                    builder: (context) => Text(
+                      currentUserDisplayName,
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily:
+                                FlutterFlowTheme.of(context).bodyMediumFamily,
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.w600,
+                            useGoogleFonts: GoogleFonts.asMap().containsKey(
+                                FlutterFlowTheme.of(context).bodyMediumFamily),
+                          ),
+                    ),
                   ),
                 ),
                 Padding(
@@ -257,17 +277,6 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                               ),
                                         ),
                                       ),
-                                      if (rowEmployeeProfileRecord.isVerified)
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  5.0, 0.0, 0.0, 0.0),
-                                          child: Icon(
-                                            Icons.verified,
-                                            color: Color(0xFF2A66DC),
-                                            size: 18.0,
-                                          ),
-                                        ),
                                     ],
                                   ),
                                 ],
